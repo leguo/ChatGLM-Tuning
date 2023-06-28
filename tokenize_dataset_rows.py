@@ -15,12 +15,24 @@ def preprocess(tokenizer, config, example, max_seq_length):
         max_length=max_seq_length,
         truncation=True,
         add_special_tokens=False)
+
+    #id2token = {value: key for key, value in tokenizer.get_vocab().items()}
+    #print("-- prompt")
+    #print(prompt)
+    #print([(x, id2token.get(x)) for x in prompt_ids])
+    #print("-- target")
+    #print(target)
+    #print([(x, id2token.get(x)) for x in target_ids])
+    #import pdb
+    #pdb.set_trace()
+
     input_ids = prompt_ids + target_ids + [config.eos_token_id]
     return {"input_ids": input_ids, "seq_len": len(prompt_ids)}
 
 
 def read_jsonl(path, max_seq_length, skip_overlength=False):
-    model_name = "THUDM/chatglm-6b"
+    #model_name = "THUDM/chatglm-6b"
+    model_name = "/Users/guole/huggingface/chatglm-6b/"
     tokenizer = transformers.AutoTokenizer.from_pretrained(
         model_name, trust_remote_code=True)
     config = transformers.AutoConfig.from_pretrained(
